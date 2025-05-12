@@ -5,6 +5,12 @@
 #ifndef STUDENT_H
 #define STUDENT_H
 
+#include "linked_list.h"
+#include "csv_file_utils.h"
+#include "hans_utils.h"
+#include "manager.h"
+#include "class.h"
+
 // 计算机 数学 英语
 #define NUM_SUBJECT 3
 
@@ -22,6 +28,8 @@ typedef struct student {
     double avg;
 } student;
 
+
+node_ptr read_from_class(CSV_File* class);
 
 
 #endif //STUDENT_H
