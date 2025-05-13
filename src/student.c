@@ -319,4 +319,5 @@ void update_student_by_number(node_ptr head) {
                                             ((student *) (target->data))->score[MATH_SUBJECT] +
                                             ((student *) (target->data))->score[ENGLISH_SUBJECT];
         ((student *) (target->data))->avg = ((student *) (target->data))->sum / NUM_SUBJECT;
+    }
 }
