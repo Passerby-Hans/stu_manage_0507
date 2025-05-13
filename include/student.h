@@ -28,8 +28,31 @@ typedef struct student {
     double avg;
 } student;
 
+enum compartor_num {
+    NUMBER_COMPARTOR,
+    NAME_COMPARTOR,
+    COMPUTER_SCORE_COMPARTOR,
+    MATH_SCORE_COMPARTOR,
+    ENGLISH_SCORE_COMPARTOR,
+    SUM_COMPARTOR,
+    AVG_COMPARTOR
+};
+
 
 node_ptr read_from_class(CSV_File* class);
+
+void visit_print(void* stu);
+void list_students(node_ptr head);
+void input_student(node_ptr head);
+void find_students_by_name(node_ptr head);
+void find_students_by_number(node_ptr head);
+int name_compartor(void* this, void* that);
+int number_compartor(void* this, void* that);
+void delete_student_by_name(node_ptr head);
+void delete_student_by_number(node_ptr head);
+
+void sort_students(node_ptr head);
+
 
 
 #endif //STUDENT_H
