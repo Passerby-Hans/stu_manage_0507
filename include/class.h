@@ -20,6 +20,8 @@ CSV_File *open_class(char* file_name);
 
 char* list_choose_classes();
 
+void save_class(CSV_File *class_file);
+
 void delete_class(char* class);
 
 #endif //CLASS_H

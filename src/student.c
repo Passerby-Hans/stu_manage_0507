@@ -102,23 +102,19 @@ int name_compartor(void *this, void *that) { return strcmp(((student*)this)->nam
 
 int number_compartor(void *this, void *that) { return strcmp(((student*)this)->number, ((student*)that)->number); }
 
-void find_students_by_name(node_ptr head) {
+node_ptr find_name(node_ptr head) {
     student *temp_stu = calloc(1, sizeof(student));
     printf("请输入姓名：\n");
     if (scanf("%s", temp_stu->name) != 1) {
         fprintf(stderr, "读取失败\n");
         exit(EXIT_FAILURE);
     }
-
     node_ptr target = get_item(head, temp_stu, name_compartor);
-    if (target == NULL)
-        printf("没有找到对应的记录！\n");
-    else
-        visit_print(target->data);
-
     free(temp_stu);
+    return target;
 }
-void find_students_by_number(node_ptr head) {
+
+node_ptr find_number(node_ptr head) {
     student *temp_stu = calloc(1, sizeof(student));
     printf("请输入学号：\n");
     if (scanf("%s", temp_stu->number) != 1) {
@@ -127,24 +123,29 @@ void find_students_by_number(node_ptr head) {
     }
 
     node_ptr target = get_item(head, temp_stu, number_compartor);
+    free(temp_stu);
+    return target;
+}
 
+void find_students_by_name(node_ptr head) {
+    node_ptr target = find_name(head);
     if (target == NULL)
         printf("没有找到对应的记录！\n");
     else
         visit_print(target->data);
+}
 
-    free(temp_stu);
+void find_students_by_number(node_ptr head) {
+    node_ptr target = find_number(head);
+    if (target == NULL)
+        printf("没有找到对应的记录！\n");
+    else
+        visit_print(target->data);
 }
 
 void delete_student_by_name(node_ptr head) {
     student *temp_stu = calloc(1, sizeof(student));
-    printf("请输入姓名：\n");
-    if (scanf("%s", temp_stu->name) != 1) {
-        fprintf(stderr, "读取失败\n");
-        exit(EXIT_FAILURE);
-    }
-
-    node_ptr target = get_item(head, temp_stu, name_compartor);
+    node_ptr target = find_name(head);
 
     if (target == NULL) {
         printf("没有找到对应的记录！\n");
@@ -158,13 +159,7 @@ void delete_student_by_name(node_ptr head) {
 
 void delete_student_by_number(node_ptr head) {
     student *temp_stu = calloc(1, sizeof(student));
-    printf("请输入学号：\n");
-    if (scanf("%s", temp_stu->number) != 1) {
-        fprintf(stderr, "读取失败\n");
-        exit(EXIT_FAILURE);
-    }
-
-    node_ptr target = get_item(head, temp_stu, number_compartor);
+    node_ptr target = find_number(head);
 
     if (target == NULL) {
         printf("没有找到对应的记录！\n");
@@ -176,7 +171,7 @@ void delete_student_by_number(node_ptr head) {
     free(temp_stu);
 }
 
-int double_compartor(double this, double that) { return this <= that ? 1 : this == that ? 0 : -1; }
+int double_compartor(double this, double that) { return this >= that ? 1 : this == that ? 0 : -1; }
 
 int computer_score_compartor(void *this, void *that) {
     return double_compartor(((student*)this)->score[COMPUTER_SUBJECT], ((student*)that)->score[COMPUTER_SUBJECT]);
@@ -230,4 +225,98 @@ void sort_students(node_ptr head, int compartor) {
             printf("错误的参数！\n");
     }
 
+}
+
+void update_student_by_name(node_ptr head) {
+    node_ptr target = find_name(head);
+
+    if (target == NULL) {
+        printf("没有找到对应的记录！\n");
+    } else {
+        printf("请输入学号：\n");
+        if (scanf("%s", ((student *) (target->data))->number) != 1) {
+            fprintf(stderr, "读取失败\n");
+            exit(EXIT_FAILURE);
+        }
+        printf("请输入姓名：\n");
+        if (scanf("%s", ((student *) (target->data))->name) != 1) {
+            fprintf(stderr, "读取失败\n");
+            exit(EXIT_FAILURE);
+        }
+
+        printf("请输入性别：\n");
+        if (scanf("%s", ((student *) (target->data))->sex) != 1) {
+            fprintf(stderr, "读取失败\n");
+            exit(EXIT_FAILURE);
+        }
+
+        printf("请输入班级：\n");
+        if (scanf("%s", ((student *) (target->data))->class_no) != 1) {
+            fprintf(stderr, "读取失败\n");
+            exit(EXIT_FAILURE);
+        }
+
+        printf("请输入计算机成绩：\n");
+        if (scanf(".2%lf", &((student *) (target->data))->score[COMPUTER_SUBJECT]) != 1) {
+            fprintf(stderr, "读取失败\n");
+            exit(EXIT_FAILURE);
+        }
+
+        printf("请输入数学成绩：\n");
+        if (scanf("%lf", &((student *) (target->data))->score[MATH_SUBJECT]) != 1) {
+            fprintf(stderr, "读取失败\n");
+            exit(EXIT_FAILURE);
+        }
+
+        ((student *) (target->data))->sum = ((student *) (target->data))->score[COMPUTER_SUBJECT] +
+                                            ((student *) (target->data))->score[MATH_SUBJECT] +
+                                            ((student *) (target->data))->score[ENGLISH_SUBJECT];
+        ((student *) (target->data))->avg = ((student *) (target->data))->sum / NUM_SUBJECT;
+    }
+}
+void update_student_by_number(node_ptr head) {
+    node_ptr target = find_number(head);
+
+    if (target == NULL) {
+        printf("没有找到对应的记录！\n");
+    } else {
+        printf("请输入学号：\n");
+        if (scanf("%s", ((student *) (target->data))->number) != 1) {
+            fprintf(stderr, "读取失败\n");
+            exit(EXIT_FAILURE);
+        }
+        printf("请输入姓名：\n");
+        if (scanf("%s", ((student *) (target->data))->name) != 1) {
+            fprintf(stderr, "读取失败\n");
+            exit(EXIT_FAILURE);
+        }
+
+        printf("请输入性别：\n");
+        if (scanf("%s", ((student *) (target->data))->sex) != 1) {
+            fprintf(stderr, "读取失败\n");
+            exit(EXIT_FAILURE);
+        }
+
+        printf("请输入班级：\n");
+        if (scanf("%s", ((student *) (target->data))->class_no) != 1) {
+            fprintf(stderr, "读取失败\n");
+            exit(EXIT_FAILURE);
+        }
+
+        printf("请输入计算机成绩：\n");
+        if (scanf(".2%lf", &((student *) (target->data))->score[COMPUTER_SUBJECT]) != 1) {
+            fprintf(stderr, "读取失败\n");
+            exit(EXIT_FAILURE);
+        }
+
+        printf("请输入数学成绩：\n");
+        if (scanf("%lf", &((student *) (target->data))->score[MATH_SUBJECT]) != 1) {
+            fprintf(stderr, "读取失败\n");
+            exit(EXIT_FAILURE);
+        }
+
+        ((student *) (target->data))->sum = ((student *) (target->data))->score[COMPUTER_SUBJECT] +
+                                            ((student *) (target->data))->score[MATH_SUBJECT] +
+                                            ((student *) (target->data))->score[ENGLISH_SUBJECT];
+        ((student *) (target->data))->avg = ((student *) (target->data))->sum / NUM_SUBJECT;
 }

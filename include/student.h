@@ -50,7 +50,8 @@ int name_compartor(void* this, void* that);
 int number_compartor(void* this, void* that);
 void delete_student_by_name(node_ptr head);
 void delete_student_by_number(node_ptr head);
-
+void update_student_by_name(node_ptr head);
+void update_student_by_number(node_ptr head);
 void sort_students(node_ptr head);
 
 
