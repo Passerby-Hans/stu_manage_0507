@@ -93,9 +93,16 @@ char* list_choose_classes() {
     free(path_buffer);
 
     printf("按下 数字索引 选择要操作的班级文件。\n");
-    printf("请输入：\n");
-    int index = 0;
-    scanf("%d", &index);
+    int index = -1;
+
+    do {
+        printf("请输入：\n");
+        if (scanf("%d", &index) != 1) {
+            // 清空输入缓冲区
+            while (getchar() != '\n');
+        }
+    } while (index < 0 || index > count);
+
     char* result = calloc(strlen(files[index]) + 1, sizeof(char));
     strcpy(result, files[index]);
     for (int i = 0; i < count; i++) {

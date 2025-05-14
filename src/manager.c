@@ -52,7 +52,11 @@ void operate_exist_file() {
                        "[1] 降序\n");
                 do {
                     printf("请输入 0-1： ");
-                } while (scanf("%d", &order) != 1);
+                    if (scanf("%d", &order) != 1) {
+                        // 清空输入缓冲区
+                        while (getchar() != '\n');
+                    }
+                } while (order < 0 || order > 1);
                 list_students(list, order);
                 press_to_exit_function();
                 break;
@@ -72,7 +76,11 @@ void operate_exist_file() {
                        "[2] 按名字查找\n");
                 do {
                     printf("请输入 1-2： ");
-                } while (scanf("%d", &finding) != 1);
+                    if (scanf("%d", &finding) != 1) {
+                        // 清空输入缓冲区
+                        while (getchar() != '\n');
+                    }
+                } while (finding < 1 || finding > 2);
                 switch (finding) {
                     case 1:
                         find_students_by_number(list);
@@ -95,15 +103,19 @@ void operate_exist_file() {
                        "[2] 按名字删除\n");
                 do {
                     printf("请输入 1-2： ");
-                } while (scanf("%d", &deleting) != 1);
+                    if (scanf("%d", &deleting) != 1) {
+                        // 清空输入缓冲区
+                        while (getchar() != '\n');
+                    }
+                } while (deleting < 1 || deleting > 2);
                 switch (deleting) {
                     case 1:
                         delete_student_by_number(list);
-                        printf("删除操作完成!\n");
+                        printf("删除操作结束!\n");
                         break;
                     case 2:
                         delete_student_by_name(list);
-                        printf("删除操作完成!\n");
+                        printf("删除操作结束!\n");
                         break;
                     default:
                         printf("输入无效！\n");
@@ -120,15 +132,19 @@ void operate_exist_file() {
                        "[2] 按名字修改\n");
                 do {
                     printf("请输入 1-2： ");
-                } while (scanf("%d", &updating) != 1);
+                    if (scanf("%d", &updating) != 1) {
+                        // 清空输入缓冲区
+                        while (getchar() != '\n');
+                    }
+                } while (updating < 1 || updating > 2);
                 switch (updating) {
                     case 1:
                         update_student_by_number(list);
-                        printf("修改操作完成!\n");
+                        printf("修改操作结束!\n");
                         break;
                     case 2:
                         update_student_by_name(list);
-                        printf("修改操作完成!\n");
+                        printf("修改操作结束!\n");
                         break;
                     default:
                         printf("输入无效！\n");
@@ -150,7 +166,11 @@ void operate_exist_file() {
                        "[6] 按平均分排序\n");
                 do {
                     printf("请输入 0-6： ");
-                } while (scanf("%d", &sorting) != 1);
+                    if (scanf("%d", &sorting) != 1) {
+                        // 清空输入缓冲区
+                        while (getchar() != '\n');
+                    }
+                } while (sorting < 0 || sorting > 6);
                 switch (sorting) {
                     case NUMBER_COMPARTOR:
                         sort_students(list, NUMBER_COMPARTOR);
@@ -233,7 +253,11 @@ void operate_new_file() {
                        "[1] 降序\n");
                 do {
                     printf("请输入 0-1： ");
-                } while (scanf("%d", &order) != 1);
+                    if (scanf("%d", &order) != 1) {
+                        // 清空输入缓冲区
+                        while (getchar() != '\n');
+                    }
+                } while (order < 0 || order > 1);
                 list_students(list, order);
                 press_to_exit_function();
                 break;
@@ -253,7 +277,11 @@ void operate_new_file() {
                        "[2] 按名字查找\n");
                 do {
                     printf("请输入 1-2： ");
-                } while (scanf("%d", &finding) != 1);
+                    if (scanf("%d", &finding) != 1) {
+                        // 清空输入缓冲区
+                        while (getchar() != '\n');
+                    }
+                } while (finding < 1 || finding > 2);
                 switch (finding) {
                     case 1:
                         find_students_by_number(list);
@@ -276,15 +304,19 @@ void operate_new_file() {
                        "[2] 按名字删除\n");
                 do {
                     printf("请输入 1-2： ");
-                } while (scanf("%d", &deleting) != 1);
+                    if (scanf("%d", &deleting) != 1) {
+                        // 清空输入缓冲区
+                        while (getchar() != '\n');
+                    }
+                } while (deleting < 1 || deleting > 2);
                 switch (deleting) {
                     case 1:
                         delete_student_by_number(list);
-                        printf("删除操作完成!\n");
+                        printf("删除操作结束!\n");
                         break;
                     case 2:
                         delete_student_by_name(list);
-                        printf("删除操作完成!\n");
+                        printf("删除操作结束!\n");
                         break;
                     default:
                         printf("输入无效！\n");
@@ -301,15 +333,19 @@ void operate_new_file() {
                        "[2] 按名字修改\n");
                 do {
                     printf("请输入 1-2： ");
-                } while (scanf("%d", &updating) != 1);
+                    if (scanf("%d", &updating) != 1) {
+                        // 清空输入缓冲区
+                        while (getchar() != '\n');
+                    }
+                } while (updating < 1 || updating > 2);
                 switch (updating) {
                     case 1:
                         update_student_by_number(list);
-                        printf("修改操作完成!\n");
+                        printf("修改操作结束!\n");
                         break;
                     case 2:
                         update_student_by_name(list);
-                        printf("修改操作完成!\n");
+                        printf("修改操作结束!\n");
                         break;
                     default:
                         printf("输入无效！\n");
@@ -331,7 +367,11 @@ void operate_new_file() {
                        "[6] 按平均分排序\n");
                 do {
                     printf("请输入 0-6： ");
-                } while (scanf("%d", &sorting) != 1);
+                    if (scanf("%d", &sorting) != 1) {
+                        // 清空输入缓冲区
+                        while (getchar() != '\n');
+                    }
+                } while (sorting < 0 || sorting > 6);
                 switch (sorting) {
                     case NUMBER_COMPARTOR:
                         sort_students(list, NUMBER_COMPARTOR);
@@ -413,7 +453,9 @@ void general_menu() {
                 press_to_exit_function();
                 break;
             case 4:
+                clean_screen(1, 1);
                 print_about();
+                press_to_exit_function();
                 break;
             case 5:
                 return;

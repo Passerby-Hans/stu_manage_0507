@@ -243,6 +243,7 @@ void update_student_by_name(node_ptr head) {
     if (target == NULL) {
         printf("没有找到对应的记录！\n");
     } else {
+        printf("请输入新的信息。\n");
         printf("请输入学号：\n");
         if (scanf("%s", ((student *) (target->data))->number) != 1) {
             fprintf(stderr, "读取失败\n");
@@ -298,6 +299,7 @@ void update_student_by_number(node_ptr head) {
     if (target == NULL) {
         printf("没有找到对应的记录！\n");
     } else {
+        printf("请输入新的信息。\n");
         printf("请输入学号：\n");
         if (scanf("%s", ((student *) (target->data))->number) != 1) {
             fprintf(stderr, "读取失败\n");

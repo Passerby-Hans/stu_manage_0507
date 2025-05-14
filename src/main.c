@@ -5,7 +5,6 @@
 
 int main(void) {
     init_file_system();
-    printf("Hello, World!\n");
     general_menu();
     return 0;
 }
