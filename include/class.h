@@ -14,14 +14,20 @@
 #include <direct.h>
 #include <windows.h>
 
-#define DEFAULT_CELL_SIZE 20
+#define DEFAULT_CELL_SIZE 25
 
+//tested
 CSV_File *open_class(char* file_name);
 
+//tested
 char* list_choose_classes();
 
-void save_class(CSV_File *class_file);
+//tested
+void save_class(node_ptr head, char* file_name);
 
-void delete_class(char* class);
+void close_class(CSV_File *class);
+
+//tested
+void delete_class(char* file_name);
 
 #endif //CLASS_H

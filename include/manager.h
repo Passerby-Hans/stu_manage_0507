@@ -16,4 +16,6 @@
 
 void init_file_system();
 
+void general_menu();
+
 #endif //MANAGER_H

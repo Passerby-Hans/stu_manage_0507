@@ -47,53 +47,63 @@ void visit_print(void *stu) {
            stu_s->sum, stu_s->avg);
 }
 
-void list_students(node_ptr head) {
+void list_students(node_ptr head, int order) {
     printf("共有 %d 条记录\n", get_length(head));
     printf("%10s%10s%10s%10s%10s%10s%10s%10s%10s\n", "学号", "姓名", "性别", "班级", "计算机", "数学", "英语", "总分",
            "平均分");
 
-    traversal_list(head, FORWARD_TRAVERSAL, visit_print);
+    traversal_list(head, order, visit_print);
 }
 
 void input_student(node_ptr head) {
     student *stu = calloc(1, sizeof(student));
     printf("请输入学号：\n");
-    if (scanf("%s", stu->number) != 1) {
+    if (scanf("%s", (stu)->number) != 1) {
         fprintf(stderr, "读取失败\n");
         exit(EXIT_FAILURE);
     }
     printf("请输入姓名：\n");
-    if (scanf("%s", stu->name) != 1) {
+    if (scanf("%s", (stu)->name) != 1) {
         fprintf(stderr, "读取失败\n");
         exit(EXIT_FAILURE);
     }
-
     printf("请输入性别：\n");
-    if (scanf("%s", stu->sex) != 1) {
+    if (scanf("%s", (stu)->sex) != 1) {
         fprintf(stderr, "读取失败\n");
         exit(EXIT_FAILURE);
     }
-
     printf("请输入班级：\n");
-    if (scanf("%s", stu->class_no) != 1) {
+    if (scanf("%s", (stu)->class_no) != 1) {
         fprintf(stderr, "读取失败\n");
         exit(EXIT_FAILURE);
     }
-
+    char temp[100];
     printf("请输入计算机成绩：\n");
-    if (scanf(".2%lf", &stu->score[COMPUTER_SUBJECT]) != 1) {
+    if (scanf("%s", temp) != 1) {
         fprintf(stderr, "读取失败\n");
         exit(EXIT_FAILURE);
     }
+    (stu)->score[COMPUTER_SUBJECT] = strtod(temp, NULL);
+
 
     printf("请输入数学成绩：\n");
-    if (scanf("%lf", &stu->score[MATH_SUBJECT]) != 1) {
+    if (scanf("%s", temp ) != 1) {
         fprintf(stderr, "读取失败\n");
         exit(EXIT_FAILURE);
     }
+    (stu)->score[MATH_SUBJECT] = strtod(temp, NULL);
 
-    stu->sum = stu->score[COMPUTER_SUBJECT] + stu->score[MATH_SUBJECT] + stu->score[ENGLISH_SUBJECT];
-    stu->avg = stu->sum / NUM_SUBJECT;
+    printf("请输入英语成绩：\n");
+    if (scanf("%s", temp) != 1) {
+        fprintf(stderr, "读取失败\n");
+        exit(EXIT_FAILURE);
+    }
+    (stu)->score[ENGLISH_SUBJECT] = strtod(temp, NULL);
+
+    (stu)->sum = (stu)->score[COMPUTER_SUBJECT] +
+                                        (stu)->score[MATH_SUBJECT] +
+                                        (stu)->score[ENGLISH_SUBJECT];
+    (stu)->avg = (stu)->sum / NUM_SUBJECT;
 
     add_tail(head, stu);
 }
@@ -190,36 +200,36 @@ int sum_compartor(void *this, void *that) { return double_compartor(((student*)t
 int avg_compartor(void *this, void *that) { return double_compartor(((student*)this)->avg, ((student*)that)->avg); }
 
 void sort_students(node_ptr head, int compartor) {
-    int (*compartor_list[7])(void *, void *);
-    compartor_list[NUMBER_COMPARTOR] = number_compartor;
-    compartor_list[NAME_COMPARTOR] = name_compartor;
-    compartor_list[COMPUTER_SCORE_COMPARTOR] = computer_score_compartor;
-    compartor_list[MATH_SCORE_COMPARTOR] = math_score_compartor;
-    compartor_list[ENGLISH_SCORE_COMPARTOR] = english_score_compartor;
-    compartor_list[SUM_COMPARTOR] = sum_compartor;
-    compartor_list[AVG_COMPARTOR] = avg_compartor;
+    int (*compartor_list_A[7])(void *, void *);
+    compartor_list_A[NUMBER_COMPARTOR] = number_compartor;
+    compartor_list_A[NAME_COMPARTOR] = name_compartor;
+    compartor_list_A[COMPUTER_SCORE_COMPARTOR] = computer_score_compartor;
+    compartor_list_A[MATH_SCORE_COMPARTOR] = math_score_compartor;
+    compartor_list_A[ENGLISH_SCORE_COMPARTOR] = english_score_compartor;
+    compartor_list_A[SUM_COMPARTOR] = sum_compartor;
+    compartor_list_A[AVG_COMPARTOR] = avg_compartor;
 
     switch (compartor) {
         case NUMBER_COMPARTOR:
-            bubble_sort(head, compartor_list[NUMBER_COMPARTOR]);
+            bubble_sort(head, compartor_list_A[NUMBER_COMPARTOR]);
             break;
         case NAME_COMPARTOR:
-            bubble_sort(head, compartor_list[NAME_COMPARTOR]);
+            bubble_sort(head, compartor_list_A[NAME_COMPARTOR]);
             break;
         case COMPUTER_SCORE_COMPARTOR:
-            bubble_sort(head, compartor_list[COMPUTER_SCORE_COMPARTOR]);
+            bubble_sort(head, compartor_list_A[COMPUTER_SCORE_COMPARTOR]);
             break;
         case MATH_SCORE_COMPARTOR:
-            bubble_sort(head, compartor_list[MATH_SCORE_COMPARTOR]);
+            bubble_sort(head, compartor_list_A[MATH_SCORE_COMPARTOR]);
             break;
         case ENGLISH_SCORE_COMPARTOR:
-            bubble_sort(head, compartor_list[ENGLISH_SCORE_COMPARTOR]);
+            bubble_sort(head, compartor_list_A[ENGLISH_SCORE_COMPARTOR]);
             break;
         case SUM_COMPARTOR:
-            bubble_sort(head, compartor_list[SUM_COMPARTOR]);
+            bubble_sort(head, compartor_list_A[SUM_COMPARTOR]);
             break;
         case AVG_COMPARTOR:
-            bubble_sort(head, compartor_list[AVG_COMPARTOR]);
+            bubble_sort(head, compartor_list_A[AVG_COMPARTOR]);
             break;
         default:
             printf("错误的参数！\n");
@@ -243,30 +253,38 @@ void update_student_by_name(node_ptr head) {
             fprintf(stderr, "读取失败\n");
             exit(EXIT_FAILURE);
         }
-
         printf("请输入性别：\n");
         if (scanf("%s", ((student *) (target->data))->sex) != 1) {
             fprintf(stderr, "读取失败\n");
             exit(EXIT_FAILURE);
         }
-
         printf("请输入班级：\n");
         if (scanf("%s", ((student *) (target->data))->class_no) != 1) {
             fprintf(stderr, "读取失败\n");
             exit(EXIT_FAILURE);
         }
-
+        char temp[100];
         printf("请输入计算机成绩：\n");
-        if (scanf(".2%lf", &((student *) (target->data))->score[COMPUTER_SUBJECT]) != 1) {
+        if (scanf("%s", temp) != 1) {
             fprintf(stderr, "读取失败\n");
             exit(EXIT_FAILURE);
         }
+        ((student *) (target->data))->score[COMPUTER_SUBJECT] = strtod(temp, NULL);
+
 
         printf("请输入数学成绩：\n");
-        if (scanf("%lf", &((student *) (target->data))->score[MATH_SUBJECT]) != 1) {
+        if (scanf("%s", temp ) != 1) {
             fprintf(stderr, "读取失败\n");
             exit(EXIT_FAILURE);
         }
+        ((student *) (target->data))->score[MATH_SUBJECT] = strtod(temp, NULL);
+
+        printf("请输入英语成绩：\n");
+        if (scanf("%s", temp) != 1) {
+            fprintf(stderr, "读取失败\n");
+            exit(EXIT_FAILURE);
+        }
+        ((student *) (target->data))->score[ENGLISH_SUBJECT] = strtod(temp, NULL);
 
         ((student *) (target->data))->sum = ((student *) (target->data))->score[COMPUTER_SUBJECT] +
                                             ((student *) (target->data))->score[MATH_SUBJECT] +
@@ -290,30 +308,38 @@ void update_student_by_number(node_ptr head) {
             fprintf(stderr, "读取失败\n");
             exit(EXIT_FAILURE);
         }
-
         printf("请输入性别：\n");
         if (scanf("%s", ((student *) (target->data))->sex) != 1) {
             fprintf(stderr, "读取失败\n");
             exit(EXIT_FAILURE);
         }
-
         printf("请输入班级：\n");
         if (scanf("%s", ((student *) (target->data))->class_no) != 1) {
             fprintf(stderr, "读取失败\n");
             exit(EXIT_FAILURE);
         }
-
+        char temp[100];
         printf("请输入计算机成绩：\n");
-        if (scanf(".2%lf", &((student *) (target->data))->score[COMPUTER_SUBJECT]) != 1) {
+        if (scanf("%s", temp) != 1) {
             fprintf(stderr, "读取失败\n");
             exit(EXIT_FAILURE);
         }
+        ((student *) (target->data))->score[COMPUTER_SUBJECT] = strtod(temp, NULL);
+
 
         printf("请输入数学成绩：\n");
-        if (scanf("%lf", &((student *) (target->data))->score[MATH_SUBJECT]) != 1) {
+        if (scanf("%s", temp ) != 1) {
             fprintf(stderr, "读取失败\n");
             exit(EXIT_FAILURE);
         }
+        ((student *) (target->data))->score[MATH_SUBJECT] = strtod(temp, NULL);
+
+        printf("请输入英语成绩：\n");
+        if (scanf("%s", temp) != 1) {
+            fprintf(stderr, "读取失败\n");
+            exit(EXIT_FAILURE);
+        }
+        ((student *) (target->data))->score[ENGLISH_SUBJECT] = strtod(temp, NULL);
 
         ((student *) (target->data))->sum = ((student *) (target->data))->score[COMPUTER_SUBJECT] +
                                             ((student *) (target->data))->score[MATH_SUBJECT] +

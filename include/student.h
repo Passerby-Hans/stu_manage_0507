@@ -21,8 +21,8 @@
 typedef struct student {
     char number[20];
     char name[20];
-    char sex[4];
-    char class_no[10];
+    char sex[8];
+    char class_no[20];
     double score[NUM_SUBJECT];
     double sum;
     double avg;
@@ -38,21 +38,28 @@ enum compartor_num {
     AVG_COMPARTOR
 };
 
-
+// tested
 node_ptr read_from_class(CSV_File* class);
 
 void visit_print(void* stu);
-void list_students(node_ptr head);
+// tested
+void list_students(node_ptr head, int order);
+// tested
 void input_student(node_ptr head);
+// tested
 void find_students_by_name(node_ptr head);
+// tested
 void find_students_by_number(node_ptr head);
-int name_compartor(void* this, void* that);
-int number_compartor(void* this, void* that);
+// tested
 void delete_student_by_name(node_ptr head);
+// tested
 void delete_student_by_number(node_ptr head);
+// tested
 void update_student_by_name(node_ptr head);
+// tested
 void update_student_by_number(node_ptr head);
-void sort_students(node_ptr head);
+// tested
+void sort_students(node_ptr head, int compartor);
 
 
 

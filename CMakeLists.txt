@@ -10,9 +10,7 @@ add_executable(Student_Manage_System_0507
         src/linked_list.c
         src/csv_file_utils.c
         src/hans_utils.c
-        include/manager.h
         src/manager.c
-        include/class.h
         src/class.c
         src/student.c
 )

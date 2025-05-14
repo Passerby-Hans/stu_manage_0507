@@ -4,7 +4,6 @@
 
 #include "class.h"
 
-// TODO 覆写？ w+
 CSV_File *open_class(char* file_name) {
     CSV_File *class_file = calloc(1, sizeof(CSV_File));
     if (class_file == NULL) {
@@ -185,4 +184,19 @@ void save_class(node_ptr head, char* file_name) {
     }
     free_list(head);
     close_file(class_file);
+}
+
+void close_class(CSV_File *class) {
+    close_file(class);
+}
+
+void delete_class(char* file_name) {
+    char* file_path_buffer = calloc(MAX_FILE_STR_LEN, sizeof(char));
+    snprintf(file_path_buffer, MAX_FILE_STR_LEN, "%s/%s", DIR, file_name);
+    if (remove(file_path_buffer) == 0) {
+        printf("文件 %s 删除成功\n", file_path_buffer);
+    } else {
+        fprintf(stderr, "删除文件失败!");
+        exit(EXIT_FAILURE);
+    }
 }
